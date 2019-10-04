@@ -19,7 +19,8 @@ func main() {
 		os.Exit(1)
 	}
 
-	v, err := decimal.NewFromString(os.Args[1])
+	args := flag.Args()
+	v, err := decimal.NewFromString(args[0])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
