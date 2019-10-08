@@ -12,7 +12,8 @@ var base int
 var rev bool
 
 func main() {
-	flag.IntVar(&base, "base", 375, "base width(px)")
+	//flag.IntVar(&base, "base", 375, "base width(px)")
+	flag.IntVar(&base, "base", 1280, "base width(px)")
 	flag.BoolVar(&rev, "reverse", false, "calc to px")
 	flag.Parse()
 
