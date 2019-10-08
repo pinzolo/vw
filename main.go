@@ -4,35 +4,45 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
+
+	"github.com/atotto/clipboard"
 
 	"github.com/shopspring/decimal"
 )
 
 var base int
+var copy bool
 var rev bool
 
 func main() {
 	//flag.IntVar(&base, "base", 375, "base width(px)")
 	flag.IntVar(&base, "base", 1280, "base width(px)")
+	flag.BoolVar(&copy, "copy", false, "copy to clipboard")
 	flag.BoolVar(&rev, "reverse", false, "calc to px")
 	flag.Parse()
 
-	if len(os.Args) == 1 {
+	args := flag.Args()
+	if len(args) == 0 {
 		fmt.Fprintln(os.Stderr, "value required")
 		os.Exit(1)
 	}
 
-	args := flag.Args()
 	v, err := decimal.NewFromString(args[0])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
+	var output string
 	if rev {
-		fmt.Printf("%vpx\n", toPX(v))
+		output = fmt.Sprintf("%vpx", toPX(v))
 	} else {
-		fmt.Printf("%vvw\n", toVW(v))
+		output = fmt.Sprintf("%vvw", toVW(v))
 	}
+	if copy {
+		clipboard.WriteAll(strings.TrimSpace(output))
+	}
+	fmt.Println(output)
 }
 
 func toVW(d decimal.Decimal) decimal.Decimal {
