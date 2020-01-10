@@ -33,11 +33,11 @@ func TestToPX(t *testing.T) {
 	testdata := []struct {
 		base  int
 		value string
-		want  int64
+		want  string
 	}{
-		{375, "20", 75},
-		{375, "33.3333333333333333", 125},
-		{500, "25", 125},
+		{375, "20", "75"},
+		{375, "33.3333333333333333", "125"},
+		{500, "25", "125"},
 	}
 	base = 375
 	for _, td := range testdata {
